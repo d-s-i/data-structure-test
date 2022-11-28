@@ -1,18 +1,18 @@
-class SinglyNode {
-    private _value: any;
-    private _next: SinglyNode | null;
+class SinglyNode<T> {
+    private _value: T;
+    private _next: SinglyNode<T> | null;
 
     constructor(value: any) {
         this._value = value;
         this._next = null;
     }
 
-    _setNext(newNext: SinglyNode | null) {
+    _setNext(newNext: SinglyNode<T> | null) {
         this._next = newNext;
         return this;
     }
 
-    _setValue(newValue: any) {
+    _setValue(newValue: T) {
         // console.log("SlinglyNode::_setValue - ", newValue);
         this._value = newValue;
     }
@@ -26,10 +26,10 @@ class SinglyNode {
     }
 }
 
-class SinglyNodeList {
+class SinglyNodeList<T> {
 
-    private _head: SinglyNode | null;
-    private _tail: SinglyNode | null;
+    private _head: SinglyNode<T> | null;
+    private _tail: SinglyNode<T> | null;
     private _length: number;
     
     constructor() {
@@ -38,8 +38,8 @@ class SinglyNodeList {
         this._length = 0;
     }    
 
-    push(value: any) {
-        const newNode = new SinglyNode(value);
+    push(value: T) {
+        const newNode = new SinglyNode<T>(value);
         if (!this._head) {
             this._head = newNode;
         } else {
@@ -86,8 +86,8 @@ class SinglyNodeList {
         return prevHead;
     }
 
-    unshift(value: any) {
-        const newHead = new SinglyNode(value);
+    unshift(value: T) {
+        const newHead = new SinglyNode<T>(value);
 
         if(!this._head) {
             this._head = newHead;
@@ -112,7 +112,7 @@ class SinglyNodeList {
         return currentNode;
     }
 
-    set(value: any, index: number) {
+    set(value: T, index: number) {
         let foundNode = this.get(index);
         if(!foundNode) return false;
 
@@ -120,7 +120,7 @@ class SinglyNodeList {
         return true;
     }
 
-    insert(value: any, index: number) {
+    insert(value: T, index: number) {
         if(index < 0 || index > this.length) return false;
 
         if(index === 0) {
@@ -128,7 +128,7 @@ class SinglyNodeList {
         } else if(index === this.length) {
             this.push(value);
         } else {
-            const newNode = new SinglyNode(value);
+            const newNode = new SinglyNode<T>(value);
             const nextNode = this.get(index);
             if(nextNode) newNode._setNext(nextNode);
             const prevNode = this.get(index - 1);
